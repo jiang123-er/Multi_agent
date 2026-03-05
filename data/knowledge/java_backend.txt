@@ -1,0 +1,54 @@
+Java后端工程师面试题面经
+
+一、Java基础
+1. HashMap底层原理？JDK1.8优化？
+   考察点：数据结构、哈希冲突
+   答案要点：数组+链表+红黑树；扰动函数、扩容机制、尾插法
+
+2. ConcurrentHashMap如何保证线程安全？1.7和1.8区别？
+   考察点：并发集合
+   答案要点：1.7分段锁，1.8 CAS+synchronized
+
+3. JVM内存模型？GC算法？
+   考察点：JVM理解
+   答案要点：堆、栈、方法区；标记清除/复制/整理；G1/ZGC
+
+二、Spring框架
+1. Spring IOC和AOP原理？
+   考察点：核心机制
+   答案要点：工厂模式、依赖注入；动态代理（JDK/CGLIB）
+
+2. Spring Boot自动配置原理？
+   考察点：Starter机制
+   答案要点：@EnableAutoConfiguration、spring.factories、条件注解
+
+3. Spring Cloud常用组件？
+   考察点：微服务架构
+   答案要点：Eureka/Nacos、Ribbon、Feign、Hystrix、Gateway
+
+三、数据库
+1. MySQL慢查询优化？
+   考察点：SQL优化
+   答案要点：explain分析、索引优化、覆盖索引、最左前缀
+
+2. 分库分表方案？ShardingSphere？
+   考察点：分布式数据库
+   答案要点：垂直/水平拆分、路由规则、分布式事务
+
+四、Redis和缓存
+1. Redis持久化RDB和AOF区别？
+   考察点：持久化机制
+   答案要点：RDB快照、AOF日志；混合持久化
+
+2. 缓存穿透、击穿、雪崩及解决方案？
+   考察点：缓存问题
+   答案要点：布隆过滤器、互斥锁、随机过期时间、多级缓存
+
+五、分布式
+1. 分布式事务解决方案？
+   考察点：一致性
+   答案要点：2PC、TCC、 Saga、本地消息表、Seata
+
+2. 分布式锁实现方式？
+   考察点：并发控制
+   答案要点：Redis(setnx+lua)、Zookeeper(临时顺序节点)

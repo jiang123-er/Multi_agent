@@ -1,0 +1,14 @@
+#以k:v的形式 存放与chroma的数据
+collection_name: agent
+
+persist_directory: './rag/chroma_db'
+
+k: 3
+data_path: data/knowledge
+md5_hex_store: md5.txt
+allow_knowledge_file_type: ["txt", "pdf"]
+
+chunk_size: 200
+chunk_overlap: 20
+
+separators: ["\n\n", "\n", ".", "。", "!", "！", "?", "？", ""]

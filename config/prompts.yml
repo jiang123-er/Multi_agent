@@ -1,0 +1,5 @@
+parse_prompt_path: prompts/parse_prompt.txt
+score_prompt_path: prompts/score_prompt.txt
+verify_prompt_path: prompts/verify_prompt.txt
+interview_prompt_path: prompts/interview_prompt.txt
+rag_prompt_path: prompts/rag_prompt.txt

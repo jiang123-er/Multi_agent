@@ -1,0 +1,14 @@
+# 模型类型：openai 或 ollama
+model_type: openai
+
+# NVIDIA NIM 配置
+chat_model_name: meta/llama3-70b-instruct
+embedding_model_name: nvidia/nv-embedqa-e5-v5
+# api_key: 从环境变量 NVIDIA_API_KEY 读取
+base_url: https://integrate.api.nvidia.com/v1
+temperature: 0.3
+
+# Ollama 本地模型配置（如果使用本地模型，把 model_type 改为 ollama）
+# model_type: ollama
+# chat_model_name: shmily_006/Qw3:4b_4bit
+# embedding_model_name: qwen3-embedding:0.6b
