@@ -158,21 +158,20 @@ with col2:
                             with st.expander("查看原始内容", expanded=False):
                                 st.text(verify.get("raw_text", "")[:500])
                         else:
-                            is_valid = verify.get("is_valid", True)
                             risk = verify.get("risk_level", "低")
-                            
-                            if is_valid:
-                                st.success(f"简历有效 | 风险等级：{risk}")
-                            else:
-                                st.error(f"发现问题 | 风险等级：{risk}")
-                            
                             issues = verify.get("issues", [])
+                            
+                            if issues:
+                                st.error(f"发现问题 | 风险等级：{risk}")
+                            else:
+                                st.success(f"简历有效 | 风险等级：{risk}")
+                            
                             if issues:
                                 with st.expander("发现的问题", expanded=True):
                                     for issue in issues:
-                                        st.warning(f"**{issue.get('type', '')}**: {issue.get('description', '')}")
-                                        if issue.get('evidence'):
-                                            st.caption(f"证据：{issue.get('evidence')}")
+                                        st.warning(f"**{issue.get('dimension', '')}**: {issue.get('issue', '')}")
+                                        if issue.get('suggestion'):
+                                            st.caption(f"建议：{issue.get('suggestion')}")
                         
                         st.markdown("---")
                         

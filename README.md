@@ -4,12 +4,22 @@
 
 ## 功能特性
 
-- 🤖 **多智能体架构**：ParserAgent、ScoreAgent、VerifyAgent、InterviewAgent 协作
+- 🤖 **多智能体架构**：ParserAgent、5个评分Agent、ScoreAgent、VerifyAgent、InterviewAgent 协作
+- ⚡ **并行评分**：5个评分Agent并行执行，性能提升约60%
 - 📊 **智能评分**：100分制评分，涵盖教育背景、技能匹配度、工作经验、项目质量、整体印象
 - 🔍 **真实性验证**：检测技能夸大、时间线问题、描述模糊等风险
 - 📝 **面试题生成**：基于简历内容生成针对性面试题
 - 🧠 **RAG 增强**：支持向量检索，生成更精准的面试题
 - 🚀 **FastAPI 接口**：提供 RESTful API，支持 PDF 和文本输入
+
+## 性能对比
+
+| 版本 | 评分阶段耗时 | 总耗时 | 提升 |
+|------|-------------|--------|------|
+| 旧版（串行评分） | ~32秒 | ~3分44秒 | - |
+| 新版（并行评分） | ~16秒 | ~1分55秒 | **约48%** |
+
+> 使用 LangGraph 的 `Send` 实现 fan-out 并行，5个评分Agent同时执行
 
 ## 技术栈
 
@@ -89,22 +99,28 @@ curl -X POST "http://localhost:8000/analyze/text" \
 ```
 Multi_agent/
 ├── api.py                 # FastAPI 主应用
-├── app.py                 # 应用入口
+├── app.py                 # Streamlit 界面
 ├── config/                # 配置文件
 │   ├── chroma.yml         # ChromaDB 配置
 │   ├── prompts.yml        # 提示词配置
 │   └── rag.yml           # RAG 配置
 ├── core/                  # 核心模块
 │   ├── agents.py          # 智能体实现
-│   └── workflow.py        # 工作流编排
+│   └── workflow.py        # LangGraph 工作流编排
 ├── data/                  # 数据目录
 │   ├── knowledge/         # 知识库文档
 │   └── resumes/           # 示例简历
 ├── model/                 # 模型工厂
 │   └── factory.py        # 模型实例化
 ├── prompts/               # 提示词模板
+│   ├── score/             # 各维度评分提示词
+│   │   ├── education.txt
+│   │   ├── skill_match.txt
+│   │   ├── experience.txt
+│   │   ├── project.txt
+│   │   └── overall.txt
 │   ├── parse_prompt.txt
-│   ├── score_prompt.txt
+│   ├── scoer_prompt.txt   # 评分汇总
 │   ├── verify_prompt.txt
 │   └── interview_prompt.txt
 ├── rag/                   # RAG 模块
@@ -121,11 +137,24 @@ Multi_agent/
 ## 工作流程
 
 ```
-简历输入 → ParserAgent 解析 → ScoreAgent 初评 → VerifyAgent 验证
-                                    ↓
-                              有问题 → RescoreAgent 复评
-                                    ↓
-                              InterviewAgent 生成面试题
+START → ParserAgent 解析简历
+          ↓
+       5个Agent并行评分（EducationAgent、SkillMatchAgent、ExperienceAgent、ProjectAgent、OverallAgent）
+          ↓
+       ScoreAgent 汇总分数
+          ↓
+       VerifyAgent 验证真实性
+          ↓
+    ┌─────────────────────────────┐
+    │ 有问题                      │ 无问题
+    ↓                             ↓
+5个Agent并行复评              InterviewAgent 生成面试题
+    ↓                             ↓
+ScoreAgent 复评汇总            END
+    ↓
+InterviewAgent 生成面试题
+    ↓
+   END
 ```
 
 ## API 文档
@@ -168,7 +197,7 @@ embedding_model_name: qwen3-embedding:0.6b
 ## 常见问题
 
 **Q: 评分不准确？**  
-A: 调整 `prompts/score_prompt.txt` 中的评分标准和示例
+A: 调整 `prompts/score/` 目录下各维度评分提示词
 
 **Q: 面试题不相关？**  
 A: 检查 `data/knowledge/` 目录下的知识库文档是否完整

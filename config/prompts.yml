@@ -1,5 +1,10 @@
 parse_prompt_path: prompts/parse_prompt.txt
-score_prompt_path: prompts/score_prompt.txt
+score_prompt_path: prompts/scoer_prompt.txt
+score_education_prompt_path: prompts/score/education.txt
+score_skill_match_prompt_path: prompts/score/skill_match.txt
+score_experience_prompt_path: prompts/score/experience.txt
+score_project_prompt_path: prompts/score/project.txt
+score_overall_prompt_path: prompts/score/overall.txt
 verify_prompt_path: prompts/verify_prompt.txt
 interview_prompt_path: prompts/interview_prompt.txt
 rag_prompt_path: prompts/rag_prompt.txt

@@ -38,17 +38,45 @@ def load_parse_prompt() -> str:
     return _load_prompt_file('parse_prompt_path', 'ParserAgent')
 
 
+def load_score_education_prompt() -> str:
+    """加载教育背景评分提示词"""
+    return _load_prompt_file('score_education_prompt_path', 'EducationAgent')
+
+
+def load_score_skill_match_prompt() -> str:
+    """加载技能匹配评分提示词"""
+    return _load_prompt_file('score_skill_match_prompt_path', 'SkillMatchAgent')
+
+
+def load_score_experience_prompt() -> str:
+    """加载工作经验评分提示词"""
+    return _load_prompt_file('score_experience_prompt_path', 'ExperienceAgent')
+
+
+def load_score_project_prompt() -> str:
+    """加载项目质量评分提示词"""
+    return _load_prompt_file('score_project_prompt_path', 'ProjectAgent')
+
+
+def load_score_overall_prompt() -> str:
+    """加载整体印象评分提示词"""
+    return _load_prompt_file('score_overall_prompt_path', 'OverallAgent')
+
+
 def load_score_prompt() -> str:
-    """加载评分智能体提示词"""
-    return _load_prompt_file('score_prompt_path', 'ScorerAgent')
+    """加载评分汇总提示词"""
+    return _load_prompt_file('score_prompt_path', 'ScoreAgent')
 
 
 def load_interview_prompt() -> str:
     """加载面试题智能体提示词"""
     return _load_prompt_file('interview_prompt_path', 'InterviewAgent')
+
+
 def load_verify_prompt() -> str:
     """加载校验智能体提示词"""
     return _load_prompt_file('verify_prompt_path','VerifyAgent')
+
 
 def load_rag_prompt() -> str:
     return _load_prompt_file('rag_prompt_path','RAG')
