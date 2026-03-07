@@ -120,7 +120,7 @@ Multi_agent/
 │   │   ├── project.txt
 │   │   └── overall.txt
 │   ├── parse_prompt.txt
-│   ├── scoer_prompt.txt   # 评分汇总
+│   ├── scoers_prompt.txt   # 评分汇总
 │   ├── verify_prompt.txt
 │   └── interview_prompt.txt
 ├── rag/                   # RAG 模块
